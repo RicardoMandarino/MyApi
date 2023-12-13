@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using MinhaApi.Contracts.Repository;
+using MinhaApi.DTO;
+using MinhaApi.Entity;
 
 namespace MinhaApi.Controllers
 {
@@ -19,5 +22,34 @@ namespace MinhaApi.Controllers
         {
            return Ok(await _userRepository.Get());
         }
+        [HttpGet("{id}")]
+        
+        public async Task<IActionResult> GetByID(int id)
+        {
+            return Ok(await _userRepository.GetByID(id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(UserDTO user)
+        {
+            await _userRepository.Add(user);
+            return Ok();
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(UserEntity user)
+        {
+            await _userRepository.Update(user);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _userRepository.Delete(id);
+            return Ok();
+        }
+
+        
     }
 }
